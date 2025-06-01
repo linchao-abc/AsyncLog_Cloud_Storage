@@ -6,6 +6,7 @@
 #include <condition_variable>
 #include <thread>
 
+// 主线程负责往生产者缓冲区写入日志，子线程负责处理消费者缓冲区中的日志
 namespace mylog {
     enum class AsyncType { ASYNC_SAFE, ASYNC_UNSAFE}; // 异步类型
     using functor = std::function<void(Buffer&)>;
