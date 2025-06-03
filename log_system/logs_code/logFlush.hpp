@@ -2,7 +2,18 @@
 #include <fstream>
 #include <unistd.h>
 #include <memory>
-// #include <time.h>
+
+/*
+LogFlush：纯虚基类，定义日志写入接口 Flush(const char*, size_t)。
+
+StdoutFlush：把日志输出到标准输出流 std::cout。
+
+FileFlush：把日志追加写入单个文件，并根据 g_conf_data->flush_log 决定是否 fflush/fsync。
+
+RollFileFlush：支持按“最大文件大小”自动滚动到新文件，文件名包含时间戳 + 序号；在写入时同样有 fflush/fsync 策略。
+
+LogFlushFactory：根据传入的具体 FlushType（如 FileFlush、RollFileFlush）和构造参数动态创建对应对象，返回 std::shared_ptr<LogFlush>。
+*/
 
 extern mylog::Util::JsonData* g_conf_data;
 
